@@ -9,6 +9,16 @@ screen_width = 1500
 screen_height = 800
 generation = 1
 
+class Car:
+    def __init__(self):
+        self.surface = pygame.image.load('car.png')
+        self.surface = pygame.transform.scale(self.surface, (100, 100))
+        self.rotate_surface = self.surface
+        self.position = [700, 650]
+
+    def draw(self, screen):
+        screen.blit(self.rotate_surface, self.position)
+
 
 def run_car():
     # Init NEAT
@@ -31,13 +41,16 @@ def run_car():
         # Draw map
         screen.blit(map, (0, 0))
 
+        car = Car()
+        car.draw(screen)
+
         # Draw cars
         for i, car in enumerate(cars):
             car.draw(screen)
             # Get output from NEAT
-            output = nets[i].activate((car.x, car.y, car.angle, car.speed))
+            #output = nets[i].activate((car.x, car.y, car.angle, car.speed))
             # Update car
-            car.update(output[0], output[1])
+            #car.update(output[0], output[1])
 
         # Update screen
         pygame.display.flip()
